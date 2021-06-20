@@ -297,7 +297,7 @@
 			"values": null
 		},
 		{
-			"name": "EdgeEndCoordinates",
+			"name": "edgeEndCoordinates",
 			"_mapToSedmlReport": false,
 			"values": null
 		},
@@ -416,7 +416,7 @@
 			"name": "edgeEnds",
 			"type": "symbol",
 			"from": {
-				"data": "EdgeEndCoordinates"
+				"data": "edgeEndCoordinates"
 			},
 			"encode": {
 				"enter": {
@@ -435,6 +435,7 @@
 					"stroke": {
 						"field": "line_color"
 					},
+					"strokeWidth": {"field": "stroke_width"},
 					"fill": {
 						"field": "line_color"
 					}
