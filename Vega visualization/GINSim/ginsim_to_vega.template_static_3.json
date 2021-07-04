@@ -657,14 +657,14 @@
 					"y": {
 						"field": "y"
 					},
-					    "text": {
+					"text": {
 						"field": "id"
-					    },
-					    "align": {
+					},
+					"align": {
 						"value": "center"
-					    },
-					    "fontWeight": {"value": "bold"},
-					    "fill": {"field": "text_color"}
+					},
+					"fontWeight": {"value": "bold"},
+					"fill": {"field": "text_color"}
 				}
 			}
 		},
@@ -682,15 +682,35 @@
 					"y": {
 						"field": "y"
 					},
-					    "text": {
-						"field": "id"
-					    },
-					    "align": {
+				        "text": {
+					    "field": "id"
+					},
+					"align": {
 						"value": "center"
-					    },
-					    "fill": {"field": "line_color"}
+					},
+					"fill": {"field": "line_color"}
 				}
 			}
+		},
+		{
+		"name": "comments",
+		"type": "text",
+		"from": {
+		"data": "nodesData"
+		},
+		"encode": {
+			"enter": {
+				"x": {"field": "x_value"},
+				"y": {"field": "y_value"},
+				"text": {"field": "comment"},
+				"align": {"value": "center"},
+				"fill": {"field": "fill_color"},
+				"stroke": {"field": "text_color"}			
+				}
+			
+			},
+		"update": 
 		}
+		
 	]
 }

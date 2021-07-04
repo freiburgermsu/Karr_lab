@@ -1,0 +1,2672 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 900.0,
+    "height": 727.3722627737227,
+    "padding": 0,
+    "autosize": "none",
+    "signals": [
+        {
+            "name": "Time_step",
+            "description": "Time step",
+            "value": 0,
+            "bind": {
+                "input": "range",
+                "min": 0,
+                "max": 100
+            }
+        },
+        {
+            "name": "mapMaxX",
+            "value": 900.0
+        },
+        {
+            "name": "mapMaxY",
+            "value": 627.3722627737227
+        },
+        {
+            "name": "signalHeight",
+            "value": 100
+        },
+        {
+            "name": "signalPadding",
+            "value": 0
+        },
+        {
+            "name": "nodeStrokeWidthData",
+            "value": 1.2773722627737227
+        },
+        {
+            "name": "edgeStrokeWidthData",
+            "value": 22.99270072992701
+        },
+        {
+            "name": "edgeEndStrokeWidthData",
+            "value": null
+        },
+        {
+            "name": "nodeFill",
+            "value": "#e0885c"
+        },
+        {
+            "name": "nodeStroke",
+            "value": "#a34610"
+        },
+        {
+            "name": "nodeLightFill",
+            "value": "#F0C4AE"
+        },
+        {
+            "name": "nodeLightStroke",
+            "value": "#D1A388"
+        },
+        {
+            "name": "labelColor",
+            "value": "#333333"
+        },
+        {
+            "name": "hiddenColor",
+            "value": "#E9E9E9"
+        },
+        {
+            "name": "Node_labels",
+            "value": true,
+            "bind": {
+                "input": "checkbox"
+            }
+        },
+        {
+            "name": "Regulation_labels",
+            "value": true,
+            "bind": {
+                "input": "checkbox"
+            }
+        },
+        {
+            "name": "mapMaxWidth",
+            "update": "width"
+        },
+        {
+            "name": "mapMaxHeight",
+            "update": "height - signalHeight - signalPadding"
+        },
+        {
+            "name": "mapSize",
+            "update": "mapMaxX / mapMaxWidth >  mapMaxY / mapMaxHeight ? [mapMaxWidth, mapMaxWidth / mapMaxX * mapMaxY] : [mapMaxHeight / mapMaxY * mapMaxX, mapMaxHeight]"
+        },
+        {
+            "name": "mapWidth",
+            "update": "mapSize[0]"
+        },
+        {
+            "name": "mapHeight",
+            "update": "mapSize[1]"
+        },
+        {
+            "name": "mapX",
+            "update": "(mapMaxWidth - mapWidth)/2"
+        },
+        {
+            "name": "mapY",
+            "update": "(mapMaxHeight - mapHeight)/2"
+        },
+        {
+            "name": "xrange",
+            "update": "[mapX, mapWidth + mapX]"
+        },
+        {
+            "name": "yrange",
+            "update": "[mapY, mapHeight + mapY]"
+        },
+        {
+            "name": "dist1",
+            "value": 0,
+            "on": [
+                {
+                    "events": {
+                        "type": "touchstart",
+                        "filter": "event.touches.length===2"
+                    },
+                    "update": "pinchDistance(event)"
+                },
+                {
+                    "events": {
+                        "signal": "dist2"
+                    },
+                    "update": "dist2"
+                }
+            ]
+        },
+        {
+            "name": "dist2",
+            "value": 0,
+            "on": [
+                {
+                    "events": {
+                        "type": "touchmove",
+                        "consume": true,
+                        "filter": "event.touches.length===2"
+                    },
+                    "update": "pinchDistance(event)"
+                }
+            ]
+        },
+        {
+            "name": "xdom",
+            "update": "slice([0, mapMaxX])",
+            "on": [
+                {
+                    "events": {
+                        "signal": "delta"
+                    },
+                    "update": "[xcur[0] + span(xcur) * delta[0] / mapWidth, xcur[1] + span(xcur) * delta[0] / mapWidth]"
+                },
+                {
+                    "events": {
+                        "signal": "zoom"
+                    },
+                    "update": "[anchor[0] + (xdom[0] - anchor[0]) * zoom, anchor[0] + (xdom[1] - anchor[0]) * zoom]"
+                }
+            ]
+        },
+        {
+            "name": "ydom",
+            "update": "slice([0, mapMaxY])",
+            "on": [
+                {
+                    "events": {
+                        "signal": "delta"
+                    },
+                    "update": "[ycur[0] + span(ycur) * delta[1] / mapHeight, ycur[1] + span(ycur) * delta[1] / mapHeight]"
+                },
+                {
+                    "events": {
+                        "signal": "zoom"
+                    },
+                    "update": "[anchor[1] + (ydom[0] - anchor[1]) * zoom, anchor[1] + (ydom[1] - anchor[1]) * zoom]"
+                }
+            ]
+        },
+        {
+            "name": "zoom",
+            "value": 1,
+            "on": [
+                {
+                    "events": "wheel!",
+                    "force": true,
+                    "update": "pow(1.001, event.deltaY * pow(16, event.deltaMode))"
+                },
+                {
+                    "events": {
+                        "signal": "dist2"
+                    },
+                    "force": true,
+                    "update": "dist1 / dist2"
+                }
+            ]
+        },
+        {
+            "name": "currentZoom",
+            "update": "(xrange[1] - xrange[0]) / (xdom[1] - xdom[0])"
+        },
+        {
+            "name": "xcur",
+            "value": null,
+            "on": [
+                {
+                    "events": "mousedown, touchstart, touchend",
+                    "update": "slice(xdom)"
+                }
+            ]
+        },
+        {
+            "name": "ycur",
+            "value": null,
+            "on": [
+                {
+                    "events": "mousedown, touchstart, touchend",
+                    "update": "slice(ydom)"
+                }
+            ]
+        },
+        {
+            "name": "down",
+            "value": null,
+            "on": [
+                {
+                    "events": "touchend",
+                    "update": "null"
+                },
+                {
+                    "events": "mousedown, touchstart",
+                    "update": "xy()"
+                }
+            ]
+        },
+        {
+            "name": "delta",
+            "value": [
+                0,
+                0
+            ],
+            "on": [
+                {
+                    "events": [
+                        {
+                            "source": "window",
+                            "type": "mousemove",
+                            "consume": true,
+                            "between": [
+                                {
+                                    "type": "mousedown"
+                                },
+                                {
+                                    "source": "window",
+                                    "type": "mouseup"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "touchmove",
+                            "consume": true,
+                            "filter": "event.touches.length === 1"
+                        }
+                    ],
+                    "update": "down ? [down[0]-x(), down[1]-y()] : [0,0]"
+                }
+            ]
+        },
+        {
+            "name": "anchor",
+            "value": [
+                0,
+                0
+            ],
+            "on": [
+                {
+                    "events": "wheel",
+                    "update": "[invert('positionXScale', x()), invert('positionYScale', y())]"
+                },
+                {
+                    "events": {
+                        "type": "touchstart",
+                        "filter": "event.touches.length===2"
+                    },
+                    "update": "[(xdom[0] + xdom[1]) / 2, (ydom[0] + ydom[1]) / 2]"
+                }
+            ]
+        },
+        {
+            "name": "hover",
+            "value": null,
+            "on": [
+                {
+                    "events": "*:mouseover",
+                    "update": "item().datum"
+                },
+                {
+                    "events": "*:mouseout",
+                    "update": "null"
+                }
+            ]
+        }
+    ],
+    "data": [
+        {
+            "name": "nodesData",
+            "_mapToSedmlReport": false,
+            "values": [
+                {
+                    "id": "Clb5",
+                    "x_value": 659.1240875912409,
+                    "y_value": 270.8029197080292,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#99ff00",
+                    "comment": null
+                },
+                {
+                    "id": "S",
+                    "x_value": 751.094890510949,
+                    "y_value": 321.8978102189781,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#ffffff",
+                    "fill_color": "#000000",
+                    "comment": null
+                },
+                {
+                    "id": "CKI",
+                    "x_value": 130.2919708029197,
+                    "y_value": 255.47445255474454,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ffff33",
+                    "comment": null
+                },
+                {
+                    "id": "Cln3",
+                    "x_value": 558.2116788321168,
+                    "y_value": 116.24087591240877,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ccffff",
+                    "comment": null
+                },
+                {
+                    "id": "FEAR",
+                    "x_value": 292.5182481751825,
+                    "y_value": 608.029197080292,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ffffff",
+                    "comment": null
+                },
+                {
+                    "id": "CD",
+                    "x_value": 51.09489051094891,
+                    "y_value": 348.72262773722633,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#ffffff",
+                    "fill_color": "#000000",
+                    "comment": null
+                },
+                {
+                    "id": "B",
+                    "x_value": 370.4379562043796,
+                    "y_value": 89.41605839416059,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#ffffff",
+                    "fill_color": "#000000",
+                    "comment": null
+                },
+                {
+                    "id": "Clb2",
+                    "x_value": 330.8394160583942,
+                    "y_value": 385.7664233576643,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#00ff33",
+                    "comment": null
+                },
+                {
+                    "id": "SFF",
+                    "x_value": 443.2481751824818,
+                    "y_value": 443.2481751824818,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ccccff",
+                    "comment": null
+                },
+                {
+                    "id": "Swi5",
+                    "x_value": 278.46715328467155,
+                    "y_value": 476.4598540145986,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ffff99",
+                    "comment": null
+                },
+                {
+                    "id": "MEN",
+                    "x_value": 196.7153284671533,
+                    "y_value": 576.094890510949,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ffffff",
+                    "comment": null
+                },
+                {
+                    "id": "Yhp1",
+                    "x_value": 634.8540145985402,
+                    "y_value": 163.5036496350365,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ffffff",
+                    "comment": null
+                },
+                {
+                    "id": "SMBF",
+                    "x_value": 480.29197080291976,
+                    "y_value": 222.26277372262774,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#00ffff",
+                    "comment": null
+                },
+                {
+                    "id": "Cdc14",
+                    "x_value": 130.2919708029197,
+                    "y_value": 494.3430656934307,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ffffff",
+                    "comment": null
+                },
+                {
+                    "id": "M",
+                    "x_value": 375.5474452554745,
+                    "y_value": 666.7883211678833,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#ffffff",
+                    "fill_color": "#000000",
+                    "comment": null
+                },
+                {
+                    "id": "Cdh1",
+                    "x_value": 569.7080291970804,
+                    "y_value": 342.3357664233577,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ff0000",
+                    "comment": null
+                },
+                {
+                    "id": "Cln2",
+                    "x_value": 226.09489051094891,
+                    "y_value": 136.67883211678833,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#33ffcc",
+                    "comment": null
+                },
+                {
+                    "id": "Cdc20",
+                    "x_value": 507.1167883211679,
+                    "y_value": 599.087591240876,
+                    "node_width": 76.64233576642336,
+                    "node_height": 38.32116788321168,
+                    "text_color": "#000000",
+                    "fill_color": "#ff9933",
+                    "comment": null
+                }
+            ]
+        },
+        {
+            "name": "edgesData",
+            "_mapToSedmlReport": false,
+            "values": [
+                {
+                    "name": "Clb5:CKI",
+                    "from_node": "Clb5",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 697.4452554744527 289.9635036496351 h -20.43795620437959 h -508.3941605839417",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb5",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "Clb5:Cdh1",
+                    "from_node": "Clb5",
+                    "to_node": "Cdh1",
+                    "edge_svg_path": "M 697.4452554744527 289.9635036496351 v 68.978102189781 h -89.4160583941607",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb5",
+                        "Cdh1"
+                    ]
+                },
+                {
+                    "name": "Clb5:S",
+                    "from_node": "Clb5",
+                    "to_node": "S",
+                    "edge_svg_path": "M 697.4452554744527 289.9635036496351 h 67.70072992700727 v 44.329927007299275",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb5",
+                        "S"
+                    ]
+                },
+                {
+                    "name": "Clb5:B",
+                    "from_node": "Clb5",
+                    "to_node": "B",
+                    "edge_svg_path": "M 697.4452554744527 289.9635036496351 v -186.49635036496352 h -288.6861313868614",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb5",
+                        "B"
+                    ]
+                },
+                {
+                    "name": "S:S",
+                    "from_node": "S",
+                    "to_node": "S",
+                    "edge_svg_path": "M 779.4160583941607 322.058394160584 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "S",
+                        "S"
+                    ]
+                },
+                {
+                    "name": "S:M",
+                    "from_node": "S",
+                    "to_node": "M",
+                    "edge_svg_path": "M 789.4160583941607 341.058394160584 v 342.3357664233577 h -375.54744525547454",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "S",
+                        "M"
+                    ]
+                },
+                {
+                    "name": "CKI:Clb2",
+                    "from_node": "CKI",
+                    "to_node": "Clb2",
+                    "edge_svg_path": "M 168.6131386861314 274.6350364963504 v 123.90510948905109 h 200.54744525547446",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CKI",
+                        "Clb2"
+                    ]
+                },
+                {
+                    "name": "CKI:CKI",
+                    "from_node": "CKI",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 158.6131386861314 255.63503649635038 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CKI",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "CKI:Clb5",
+                    "from_node": "CKI",
+                    "to_node": "Clb5",
+                    "edge_svg_path": "M 168.6131386861314 274.6350364963504 h 320.62043795620446 h 208.21167883211683",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CKI",
+                        "Clb5"
+                    ]
+                },
+                {
+                    "name": "CKI:SFF",
+                    "from_node": "CKI",
+                    "to_node": "SFF",
+                    "edge_svg_path": "M 168.6131386861314 274.6350364963504 v 176.27737226277372 h 312.9562043795621",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CKI",
+                        "SFF"
+                    ]
+                },
+                {
+                    "name": "Cln3:SMBF",
+                    "from_node": "Cln3",
+                    "to_node": "SMBF",
+                    "edge_svg_path": "M 596.5328467153286 135.4014598540146 h -49.81751824817525 v 99.25693430656936",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cln3",
+                        "SMBF"
+                    ]
+                },
+                {
+                    "name": "FEAR:Cdc14",
+                    "from_node": "FEAR",
+                    "to_node": "Cdc14",
+                    "edge_svg_path": "M 330.8394160583942 627.1897810218978 h -187.77372262773724 v -113.68613138686123",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "FEAR",
+                        "Cdc14"
+                    ]
+                },
+                {
+                    "name": "FEAR:MEN",
+                    "from_node": "FEAR",
+                    "to_node": "MEN",
+                    "edge_svg_path": "M 330.8394160583942 627.1897810218978 v -28.10218978102182 h -95.80291970802921",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "FEAR",
+                        "MEN"
+                    ]
+                },
+                {
+                    "name": "FEAR:CD",
+                    "from_node": "FEAR",
+                    "to_node": "CD",
+                    "edge_svg_path": "M 330.8394160583942 627.1897810218978 h -227.37226277372264 v -259.3065693430657",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "FEAR",
+                        "CD"
+                    ]
+                },
+                {
+                    "name": "CD:S",
+                    "from_node": "CD",
+                    "to_node": "S",
+                    "edge_svg_path": "M 89.41605839416059 367.88321167883214 v -314.2335766423358 h 729.3795620437957 v 280.64379562043797",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CD",
+                        "S"
+                    ]
+                },
+                {
+                    "name": "CD:B",
+                    "from_node": "CD",
+                    "to_node": "B",
+                    "edge_svg_path": "M 89.41605839416059 367.88321167883214 v -273.35766423357666 h 319.3430656934307",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CD",
+                        "B"
+                    ]
+                },
+                {
+                    "name": "CD:M",
+                    "from_node": "CD",
+                    "to_node": "M",
+                    "edge_svg_path": "M 89.41605839416059 367.88321167883214 v 312.9562043795621 h 324.45255474452557",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CD",
+                        "M"
+                    ]
+                },
+                {
+                    "name": "CD:CD",
+                    "from_node": "CD",
+                    "to_node": "CD",
+                    "edge_svg_path": "M 79.41605839416059 348.88321167883214 a 20 20 0 1 1 20 0",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "CD",
+                        "CD"
+                    ]
+                },
+                {
+                    "name": "B:Clb2",
+                    "from_node": "B",
+                    "to_node": "Clb2",
+                    "edge_svg_path": "M 408.75912408759126 108.57664233576644 v 155.83941605839414 v 133.74598540145988",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "B",
+                        "Clb2"
+                    ]
+                },
+                {
+                    "name": "B:SFF",
+                    "from_node": "B",
+                    "to_node": "SFF",
+                    "edge_svg_path": "M 408.75912408759126 108.57664233576644 h 51.094890510948915 v 347.0671532846715",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "B",
+                        "SFF"
+                    ]
+                },
+                {
+                    "name": "B:B",
+                    "from_node": "B",
+                    "to_node": "B",
+                    "edge_svg_path": "M 398.75912408759126 89.57664233576644 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "B",
+                        "B"
+                    ]
+                },
+                {
+                    "name": "Clb2:Cdc20",
+                    "from_node": "Clb2",
+                    "to_node": "Cdc20",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 v 204.3795620437956 h 176.27737226277372",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "Cdc20"
+                    ]
+                },
+                {
+                    "name": "Clb2:SMBF",
+                    "from_node": "Clb2",
+                    "to_node": "SMBF",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 v -159.6715328467153 h 149.45255474452551",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "SMBF"
+                    ]
+                },
+                {
+                    "name": "Clb2:CKI",
+                    "from_node": "Clb2",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 h -173.72262773722628 v -130.2919708029197",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "Clb2:Clb2",
+                    "from_node": "Clb2",
+                    "to_node": "Clb2",
+                    "edge_svg_path": "M 359.16058394160586 385.9270072992701 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "Clb2"
+                    ]
+                },
+                {
+                    "name": "Clb2:SFF",
+                    "from_node": "Clb2",
+                    "to_node": "SFF",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 h 45.98540145985402 h 66.4233576642336",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "SFF"
+                    ]
+                },
+                {
+                    "name": "Clb2:MEN",
+                    "from_node": "Clb2",
+                    "to_node": "MEN",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 v 178.83211678832123 h -134.12408759124088",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "MEN"
+                    ]
+                },
+                {
+                    "name": "Clb2:Swi5",
+                    "from_node": "Clb2",
+                    "to_node": "Swi5",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 h -35.76642335766422 v 56.20437956204381 v 27.724087591240863",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "Swi5"
+                    ]
+                },
+                {
+                    "name": "Clb2:Cdh1",
+                    "from_node": "Clb2",
+                    "to_node": "Cdh1",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 v -39.598540145985396 h 238.8686131386861",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "Cdh1"
+                    ]
+                },
+                {
+                    "name": "Clb2:S",
+                    "from_node": "Clb2",
+                    "to_node": "S",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 h 411.31386861313877 v -63.8686131386861",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "S"
+                    ]
+                },
+                {
+                    "name": "Clb2:M",
+                    "from_node": "Clb2",
+                    "to_node": "M",
+                    "edge_svg_path": "M 369.16058394160586 404.9270072992701 v 168.61313868613144 v 105.64379562043798",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Clb2",
+                        "M"
+                    ]
+                },
+                {
+                    "name": "SFF:Clb2",
+                    "from_node": "SFF",
+                    "to_node": "Clb2",
+                    "edge_svg_path": "M 481.5693430656935 462.4087591240876 h -47.26277372262774 h -65.14598540145988",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SFF",
+                        "Clb2"
+                    ]
+                },
+                {
+                    "name": "SFF:SFF",
+                    "from_node": "SFF",
+                    "to_node": "SFF",
+                    "edge_svg_path": "M 471.5693430656935 443.4087591240876 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SFF",
+                        "SFF"
+                    ]
+                },
+                {
+                    "name": "SFF:Cdc20",
+                    "from_node": "SFF",
+                    "to_node": "Cdc20",
+                    "edge_svg_path": "M 481.5693430656935 462.4087591240876 v 139.23357664233583 h 63.8686131386861",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SFF",
+                        "Cdc20"
+                    ]
+                },
+                {
+                    "name": "SFF:Swi5",
+                    "from_node": "SFF",
+                    "to_node": "Swi5",
+                    "edge_svg_path": "M 481.5693430656935 462.4087591240876 v 42.153284671532845 h -164.78102189781026",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SFF",
+                        "Swi5"
+                    ]
+                },
+                {
+                    "name": "Swi5:CKI",
+                    "from_node": "Swi5",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 316.7883211678832 495.6204379562044 h -154.56204379562044 v -220.98540145985402",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Swi5",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "MEN:Cdc14",
+                    "from_node": "MEN",
+                    "to_node": "Cdc14",
+                    "edge_svg_path": "M 235.03649635036498 595.2554744525548 h -68.97810218978103 v -81.75182481751824",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "MEN",
+                        "Cdc14"
+                    ]
+                },
+                {
+                    "name": "Yhp1:Cln3",
+                    "from_node": "Yhp1",
+                    "to_node": "Cln3",
+                    "edge_svg_path": "M 673.1751824817519 182.66423357664235 v -56.2043795620438 h -76.64233576642334",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Yhp1",
+                        "Cln3"
+                    ]
+                },
+                {
+                    "name": "SMBF:CKI",
+                    "from_node": "SMBF",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 518.6131386861314 241.4233576642336 h -325.72992700729924 v 26.44671532846714",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SMBF",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "SMBF:SMBF",
+                    "from_node": "SMBF",
+                    "to_node": "SMBF",
+                    "edge_svg_path": "M 508.6131386861314 222.4233576642336 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SMBF",
+                        "SMBF"
+                    ]
+                },
+                {
+                    "name": "SMBF:Cln2",
+                    "from_node": "SMBF",
+                    "to_node": "Cln2",
+                    "edge_svg_path": "M 518.6131386861314 241.4233576642336 h -229.92700729927003 v -85.58394160583944",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SMBF",
+                        "Cln2"
+                    ]
+                },
+                {
+                    "name": "SMBF:Clb5",
+                    "from_node": "SMBF",
+                    "to_node": "Clb5",
+                    "edge_svg_path": "M 518.6131386861314 241.4233576642336 h 172.44525547445267 v 41.77518248175183",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SMBF",
+                        "Clb5"
+                    ]
+                },
+                {
+                    "name": "SMBF:Yhp1",
+                    "from_node": "SMBF",
+                    "to_node": "Yhp1",
+                    "edge_svg_path": "M 518.6131386861314 241.4233576642336 h 157.11678832116797 v -58.75912408759126",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "SMBF",
+                        "Yhp1"
+                    ]
+                },
+                {
+                    "name": "Cdc14:CKI",
+                    "from_node": "Cdc14",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 168.6131386861314 513.5036496350366 v -129.01459854014604 v -109.85401459854018",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc14",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "Cdc14:Swi5",
+                    "from_node": "Cdc14",
+                    "to_node": "Swi5",
+                    "edge_svg_path": "M 168.6131386861314 513.5036496350366 h 62.591240875912405 h 85.58394160583941",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc14",
+                        "Swi5"
+                    ]
+                },
+                {
+                    "name": "Cdc14:Cdh1",
+                    "from_node": "Cdc14",
+                    "to_node": "Cdh1",
+                    "edge_svg_path": "M 168.6131386861314 513.5036496350366 h 439.4160583941606 v -152.00729927007308",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc14",
+                        "Cdh1"
+                    ]
+                },
+                {
+                    "name": "Cdc14:CD",
+                    "from_node": "Cdc14",
+                    "to_node": "CD",
+                    "edge_svg_path": "M 168.6131386861314 513.5036496350366 h -53.64963503649636 v -145.62043795620446",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc14",
+                        "CD"
+                    ]
+                },
+                {
+                    "name": "M:Cdc20",
+                    "from_node": "M",
+                    "to_node": "Cdc20",
+                    "edge_svg_path": "M 413.86861313868616 685.9489051094891 h 158.39416058394164 v -67.70072992700739",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "M",
+                        "Cdc20"
+                    ]
+                },
+                {
+                    "name": "M:M",
+                    "from_node": "M",
+                    "to_node": "M",
+                    "edge_svg_path": "M 403.86861313868616 666.9489051094891 a 20 20 0 1 1 20 0",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "M",
+                        "M"
+                    ]
+                },
+                {
+                    "name": "M:CD",
+                    "from_node": "M",
+                    "to_node": "CD",
+                    "edge_svg_path": "M 413.86861313868616 685.9489051094891 h -339.7810218978102 v -318.065693430657",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "M",
+                        "CD"
+                    ]
+                },
+                {
+                    "name": "Cdh1:Clb2",
+                    "from_node": "Cdh1",
+                    "to_node": "Clb2",
+                    "edge_svg_path": "M 608.029197080292 361.4963503649635 v 30.656934306569383 h -238.8686131386861",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdh1",
+                        "Clb2"
+                    ]
+                },
+                {
+                    "name": "Cdh1:SFF",
+                    "from_node": "Cdh1",
+                    "to_node": "SFF",
+                    "edge_svg_path": "M 608.029197080292 361.4963503649635 v 94.52554744525548 h -126.45985401459848",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdh1",
+                        "SFF"
+                    ]
+                },
+                {
+                    "name": "Cln2:SMBF",
+                    "from_node": "Cln2",
+                    "to_node": "SMBF",
+                    "edge_svg_path": "M 264.4160583941606 155.83941605839416 h 229.9270072992701 v 78.8189781021898",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cln2",
+                        "SMBF"
+                    ]
+                },
+                {
+                    "name": "Cln2:CKI",
+                    "from_node": "Cln2",
+                    "to_node": "CKI",
+                    "edge_svg_path": "M 264.4160583941606 155.83941605839416 h -121.35036496350364 v 112.03065693430658",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cln2",
+                        "CKI"
+                    ]
+                },
+                {
+                    "name": "Cln2:Cdh1",
+                    "from_node": "Cln2",
+                    "to_node": "Cdh1",
+                    "edge_svg_path": "M 264.4160583941606 155.83941605839416 v 192.88321167883217 h 343.6131386861314",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cln2",
+                        "Cdh1"
+                    ]
+                },
+                {
+                    "name": "Cln2:B",
+                    "from_node": "Cln2",
+                    "to_node": "B",
+                    "edge_svg_path": "M 264.4160583941606 155.83941605839416 v -48.54014598540145 h 144.34306569343067",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cln2",
+                        "B"
+                    ]
+                },
+                {
+                    "name": "Cdc20:Clb2",
+                    "from_node": "Cdc20",
+                    "to_node": "Clb2",
+                    "edge_svg_path": "M 545.4379562043796 618.2481751824818 v -209.4890510948905 h -176.27737226277372",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc20",
+                        "Clb2"
+                    ]
+                },
+                {
+                    "name": "Cdc20:FEAR",
+                    "from_node": "Cdc20",
+                    "to_node": "FEAR",
+                    "edge_svg_path": "M 545.4379562043796 618.2481751824818 h -60.03649635036493 h -154.56204379562047",
+                    "line_color": "#009900",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc20",
+                        "FEAR"
+                    ]
+                },
+                {
+                    "name": "Cdc20:Clb5",
+                    "from_node": "Cdc20",
+                    "to_node": "Clb5",
+                    "edge_svg_path": "M 545.4379562043796 618.2481751824818 h 157.11678832116786 v -328.2846715328467",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc20",
+                        "Clb5"
+                    ]
+                },
+                {
+                    "name": "Cdc20:SFF",
+                    "from_node": "Cdc20",
+                    "to_node": "SFF",
+                    "edge_svg_path": "M 545.4379562043796 618.2481751824818 v -152.00729927007296 h -63.8686131386861",
+                    "line_color": "#ff0000",
+                    "line_width": "2",
+                    "related_nodes": [
+                        "Cdc20",
+                        "SFF"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "edgeEndCoordinatesData",
+            "_mapToSedmlReport": false,
+            "values": [
+                {
+                    "name": "Clb5:CKI",
+                    "x": 212.9343065693431,
+                    "y": 289.9635036496351,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Clb5:Cdh1",
+                    "x": 652.3503649635037,
+                    "y": 358.94160583941607,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Clb5:S",
+                    "x": 765.1459854014599,
+                    "y": 316.8978102189781,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb5:B",
+                    "x": 453.08029197080293,
+                    "y": 103.46715328467154,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "S:S",
+                    "x": 804.4160583941607,
+                    "y": 317.058394160584,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "S:M",
+                    "x": 458.18978102189783,
+                    "y": 683.3941605839417,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "CKI:Clb2",
+                    "x": 324.8394160583942,
+                    "y": 398.54014598540147,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "CKI:CKI",
+                    "x": 183.6131386861314,
+                    "y": 250.63503649635038,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "CKI:Clb5",
+                    "x": 653.1240875912409,
+                    "y": 274.6350364963504,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "CKI:SFF",
+                    "x": 437.2481751824818,
+                    "y": 450.9124087591241,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cln3:SMBF",
+                    "x": 546.7153284671533,
+                    "y": 217.26277372262777,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "FEAR:Cdc14",
+                    "x": 143.06569343065695,
+                    "y": 537.6642335766425,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "FEAR:MEN",
+                    "x": 279.35766423357666,
+                    "y": 599.087591240876,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "FEAR:CD",
+                    "x": 103.46715328467154,
+                    "y": 392.043795620438,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "CD:S",
+                    "x": 818.7956204379562,
+                    "y": 316.8978102189781,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "CD:B",
+                    "x": 364.4379562043796,
+                    "y": 94.52554744525548,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "CD:M",
+                    "x": 369.5474452554745,
+                    "y": 680.8394160583942,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "CD:CD",
+                    "x": 104.41605839416059,
+                    "y": 343.88321167883214,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "B:Clb2",
+                    "x": 408.75912408759126,
+                    "y": 380.7664233576642,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "B:SFF",
+                    "x": 459.8540145985402,
+                    "y": 438.24817518248176,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "B:B",
+                    "x": 423.75912408759126,
+                    "y": 84.57664233576644,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb2:Cdc20",
+                    "x": 501.1167883211679,
+                    "y": 609.3065693430657,
+                    "edge_end_angle": -150.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb2:SMBF",
+                    "x": 474.2919708029197,
+                    "y": 245.25547445255478,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Clb2:CKI",
+                    "x": 195.4379562043796,
+                    "y": 298.79562043795625,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Clb2:Clb2",
+                    "x": 384.16058394160586,
+                    "y": 380.9270072992701,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb2:SFF",
+                    "x": 437.2481751824818,
+                    "y": 404.9270072992701,
+                    "edge_end_angle": -150.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb2:MEN",
+                    "x": 279.35766423357666,
+                    "y": 583.7591240875913,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb2:Swi5",
+                    "x": 333.39416058394164,
+                    "y": 471.45985401459853,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Clb2:Cdh1",
+                    "x": 563.7080291970802,
+                    "y": 365.3284671532847,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Clb2:S",
+                    "x": 780.4744525547446,
+                    "y": 365.21897810218985,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Clb2:M",
+                    "x": 369.16058394160586,
+                    "y": 661.7883211678833,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SFF:Clb2",
+                    "x": 413.48175182481754,
+                    "y": 462.4087591240876,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SFF:SFF",
+                    "x": 496.5693430656935,
+                    "y": 438.4087591240876,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SFF:Cdc20",
+                    "x": 501.1167883211679,
+                    "y": 601.6423357664235,
+                    "edge_end_angle": -150.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SFF:Swi5",
+                    "x": 361.1094890510949,
+                    "y": 504.56204379562047,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Swi5:CKI",
+                    "x": 162.22627737226279,
+                    "y": 298.79562043795625,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "MEN:Cdc14",
+                    "x": 166.05839416058396,
+                    "y": 537.6642335766425,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Yhp1:Cln3",
+                    "x": 640.8540145985403,
+                    "y": 126.45985401459855,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "SMBF:CKI",
+                    "x": 192.88321167883214,
+                    "y": 250.47445255474454,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "SMBF:SMBF",
+                    "x": 533.6131386861314,
+                    "y": 217.4233576642336,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SMBF:Cln2",
+                    "x": 288.68613138686135,
+                    "y": 180.0,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SMBF:Clb5",
+                    "x": 691.058394160584,
+                    "y": 265.8029197080292,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "SMBF:Yhp1",
+                    "x": 675.7299270072994,
+                    "y": 206.82481751824818,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdc14:CKI",
+                    "x": 168.6131386861314,
+                    "y": 298.79562043795625,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdc14:Swi5",
+                    "x": 272.46715328467155,
+                    "y": 513.5036496350366,
+                    "edge_end_angle": -150.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdc14:Cdh1",
+                    "x": 608.029197080292,
+                    "y": 385.6569343065694,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdc14:CD",
+                    "x": 114.96350364963504,
+                    "y": 392.043795620438,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "M:Cdc20",
+                    "x": 572.2627737226278,
+                    "y": 642.4087591240876,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "M:M",
+                    "x": 428.86861313868616,
+                    "y": 661.9489051094891,
+                    "edge_end_angle": -135,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "M:CD",
+                    "x": 74.08759124087592,
+                    "y": 392.043795620438,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdh1:Clb2",
+                    "x": 413.48175182481754,
+                    "y": 392.1532846715329,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cdh1:SFF",
+                    "x": 525.8905109489052,
+                    "y": 456.021897810219,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cln2:SMBF",
+                    "x": 494.3430656934307,
+                    "y": 217.26277372262777,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cln2:CKI",
+                    "x": 143.06569343065695,
+                    "y": 250.47445255474454,
+                    "edge_end_angle": 180.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cln2:Cdh1",
+                    "x": 563.7080291970802,
+                    "y": 348.72262773722633,
+                    "edge_end_angle": 90.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cln2:B",
+                    "x": 364.4379562043796,
+                    "y": 107.29927007299271,
+                    "edge_end_angle": -150.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdc20:Clb2",
+                    "x": 413.48175182481754,
+                    "y": 408.75912408759126,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cdc20:FEAR",
+                    "x": 375.16058394160586,
+                    "y": 618.2481751824818,
+                    "edge_end_angle": 390.0,
+                    "edge_end_shape": "triangle",
+                    "stroke_width": 1,
+                    "line_color": "#009900"
+                },
+                {
+                    "name": "Cdc20:Clb5",
+                    "x": 702.5547445255474,
+                    "y": 314.12408759124094,
+                    "edge_end_angle": 0.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                },
+                {
+                    "name": "Cdc20:SFF",
+                    "x": 525.8905109489052,
+                    "y": 466.2408759124088,
+                    "edge_end_angle": 270.0,
+                    "edge_end_shape": "stroke",
+                    "stroke_width": 5,
+                    "line_color": "#ff0000"
+                }
+            ]
+        },
+        {
+            "name": "edgesLabelsData",
+            "_mapToSedmlReport": false,
+            "values": [
+                {
+                    "id": "Clb5:CKI",
+                    "line_color": "#ff0000",
+                    "x": 677.0072992700731,
+                    "y": 264.6350364963504
+                },
+                {
+                    "id": "Clb5:Cdh1",
+                    "line_color": "#ff0000",
+                    "x": 678.2846715328468,
+                    "y": 348.94160583941607
+                },
+                {
+                    "id": "Clb5:S",
+                    "line_color": "#009900",
+                    "x": 765.1459854014599,
+                    "y": 279.9635036496351
+                },
+                {
+                    "id": "Clb5:B",
+                    "line_color": "#009900",
+                    "x": 719.1605839416059,
+                    "y": 93.46715328467154
+                },
+                {
+                    "id": "S:S",
+                    "line_color": "#009900",
+                    "x": 789.4160583941607,
+                    "y": 308.058394160584
+                },
+                {
+                    "id": "S:M",
+                    "line_color": "#009900",
+                    "x": 791.9708029197081,
+                    "y": 673.3941605839417
+                },
+                {
+                    "id": "CKI:Clb2",
+                    "line_color": "#ff0000",
+                    "x": 182.66423357664235,
+                    "y": 388.54014598540147
+                },
+                {
+                    "id": "CKI:CKI",
+                    "line_color": "#009900",
+                    "x": 168.6131386861314,
+                    "y": 241.63503649635038
+                },
+                {
+                    "id": "CKI:Clb5",
+                    "line_color": "#ff0000",
+                    "x": 489.23357664233583,
+                    "y": 279.9635036496351
+                },
+                {
+                    "id": "CKI:SFF",
+                    "line_color": "#ff0000",
+                    "x": 171.16788321167886,
+                    "y": 440.9124087591241
+                },
+                {
+                    "id": "Cln3:SMBF",
+                    "line_color": "#009900",
+                    "x": 546.7153284671533,
+                    "y": 124.12408759124088
+                },
+                {
+                    "id": "FEAR:Cdc14",
+                    "line_color": "#009900",
+                    "x": 143.06569343065695,
+                    "y": 617.1897810218978
+                },
+                {
+                    "id": "FEAR:MEN",
+                    "line_color": "#009900",
+                    "x": 346.1678832116789,
+                    "y": 589.087591240876
+                },
+                {
+                    "id": "FEAR:CD",
+                    "line_color": "#009900",
+                    "x": 103.46715328467154,
+                    "y": 627.4087591240876
+                },
+                {
+                    "id": "CD:S",
+                    "line_color": "#ff0000",
+                    "x": 818.7956204379562,
+                    "y": 43.649635036496356
+                },
+                {
+                    "id": "CD:B",
+                    "line_color": "#ff0000",
+                    "x": 108.57664233576644,
+                    "y": 84.52554744525548
+                },
+                {
+                    "id": "CD:M",
+                    "line_color": "#ff0000",
+                    "x": 83.02919708029198,
+                    "y": 670.8394160583942
+                },
+                {
+                    "id": "CD:CD",
+                    "line_color": "#ff0000",
+                    "x": 89.41605839416059,
+                    "y": 334.88321167883214
+                },
+                {
+                    "id": "B:Clb2",
+                    "line_color": "#009900",
+                    "x": 385.7664233576643,
+                    "y": 254.4160583941606
+                },
+                {
+                    "id": "B:SFF",
+                    "line_color": "#009900",
+                    "x": 459.8540145985402,
+                    "y": 104.96350364963504
+                },
+                {
+                    "id": "B:B",
+                    "line_color": "#009900",
+                    "x": 408.75912408759126,
+                    "y": 75.57664233576644
+                },
+                {
+                    "id": "Clb2:Cdc20",
+                    "line_color": "#009900",
+                    "x": 402.37226277372264,
+                    "y": 599.3065693430657
+                },
+                {
+                    "id": "Clb2:SMBF",
+                    "line_color": "#ff0000",
+                    "x": 352.55474452554745,
+                    "y": 235.25547445255478
+                },
+                {
+                    "id": "Clb2:CKI",
+                    "line_color": "#ff0000",
+                    "x": 195.4379562043796,
+                    "y": 375.7664233576643
+                },
+                {
+                    "id": "Clb2:Clb2",
+                    "line_color": "#009900",
+                    "x": 369.16058394160586,
+                    "y": 371.9270072992701
+                },
+                {
+                    "id": "Clb2:SFF",
+                    "line_color": "#009900",
+                    "x": 415.1459854014599,
+                    "y": 430.69343065693437
+                },
+                {
+                    "id": "Clb2:MEN",
+                    "line_color": "#009900",
+                    "x": 388.32116788321173,
+                    "y": 573.7591240875913
+                },
+                {
+                    "id": "Clb2:Swi5",
+                    "line_color": "#ff0000",
+                    "x": 333.39416058394164,
+                    "y": 451.1313868613139
+                },
+                {
+                    "id": "Clb2:Cdh1",
+                    "line_color": "#ff0000",
+                    "x": 398.54014598540147,
+                    "y": 355.3284671532847
+                },
+                {
+                    "id": "Clb2:S",
+                    "line_color": "#009900",
+                    "x": 780.4744525547446,
+                    "y": 392.37226277372264
+                },
+                {
+                    "id": "Clb2:M",
+                    "line_color": "#009900",
+                    "x": 395.9854014598541,
+                    "y": 563.5401459854015
+                },
+                {
+                    "id": "SFF:Clb2",
+                    "line_color": "#009900",
+                    "x": 434.30656934306575,
+                    "y": 417.9197080291971
+                },
+                {
+                    "id": "SFF:SFF",
+                    "line_color": "#009900",
+                    "x": 481.5693430656935,
+                    "y": 429.4087591240876
+                },
+                {
+                    "id": "SFF:Cdc20",
+                    "line_color": "#009900",
+                    "x": 487.9562043795621,
+                    "y": 591.6423357664235
+                },
+                {
+                    "id": "SFF:Swi5",
+                    "line_color": "#009900",
+                    "x": 476.4598540145986,
+                    "y": 494.56204379562047
+                },
+                {
+                    "id": "Swi5:CKI",
+                    "line_color": "#009900",
+                    "x": 162.22627737226279,
+                    "y": 475.40145985401466
+                },
+                {
+                    "id": "MEN:Cdc14",
+                    "line_color": "#009900",
+                    "x": 166.05839416058396,
+                    "y": 582.7007299270074
+                },
+                {
+                    "id": "Yhp1:Cln3",
+                    "line_color": "#ff0000",
+                    "x": 674.4525547445256,
+                    "y": 116.45985401459855
+                },
+                {
+                    "id": "SMBF:CKI",
+                    "line_color": "#ff0000",
+                    "x": 192.88321167883214,
+                    "y": 222.48175182481754
+                },
+                {
+                    "id": "SMBF:SMBF",
+                    "line_color": "#009900",
+                    "x": 518.6131386861314,
+                    "y": 208.4233576642336
+                },
+                {
+                    "id": "SMBF:Cln2",
+                    "line_color": "#009900",
+                    "x": 288.68613138686135,
+                    "y": 212.26277372262774
+                },
+                {
+                    "id": "SMBF:Clb5",
+                    "line_color": "#009900",
+                    "x": 691.058394160584,
+                    "y": 236.53284671532847
+                },
+                {
+                    "id": "SMBF:Yhp1",
+                    "line_color": "#009900",
+                    "x": 675.7299270072994,
+                    "y": 228.86861313868616
+                },
+                {
+                    "id": "Cdc14:CKI",
+                    "line_color": "#009900",
+                    "x": 149.45255474452557,
+                    "y": 374.48905109489056
+                },
+                {
+                    "id": "Cdc14:Swi5",
+                    "line_color": "#009900",
+                    "x": 231.2043795620438,
+                    "y": 497.1167883211679
+                },
+                {
+                    "id": "Cdc14:Cdh1",
+                    "line_color": "#009900",
+                    "x": 608.029197080292,
+                    "y": 511.1678832116788
+                },
+                {
+                    "id": "Cdc14:CD",
+                    "line_color": "#009900",
+                    "x": 114.96350364963504,
+                    "y": 493.28467153284674
+                },
+                {
+                    "id": "M:Cdc20",
+                    "line_color": "#009900",
+                    "x": 572.2627737226278,
+                    "y": 658.065693430657
+                },
+                {
+                    "id": "M:M",
+                    "line_color": "#009900",
+                    "x": 413.86861313868616,
+                    "y": 652.9489051094891
+                },
+                {
+                    "id": "M:CD",
+                    "line_color": "#009900",
+                    "x": 74.08759124087592,
+                    "y": 682.3357664233578
+                },
+                {
+                    "id": "Cdh1:Clb2",
+                    "line_color": "#ff0000",
+                    "x": 582.4817518248176,
+                    "y": 382.1532846715329
+                },
+                {
+                    "id": "Cdh1:SFF",
+                    "line_color": "#ff0000",
+                    "x": 591.4233576642337,
+                    "y": 446.021897810219
+                },
+                {
+                    "id": "Cln2:SMBF",
+                    "line_color": "#009900",
+                    "x": 494.3430656934307,
+                    "y": 161.16788321167886
+                },
+                {
+                    "id": "Cln2:CKI",
+                    "line_color": "#ff0000",
+                    "x": 143.06569343065695,
+                    "y": 140.7299270072993
+                },
+                {
+                    "id": "Cln2:Cdh1",
+                    "line_color": "#ff0000",
+                    "x": 275.9124087591241,
+                    "y": 338.72262773722633
+                },
+                {
+                    "id": "Cln2:B",
+                    "line_color": "#009900",
+                    "x": 264.4160583941606,
+                    "y": 97.29927007299271
+                },
+                {
+                    "id": "Cdc20:Clb2",
+                    "line_color": "#ff0000",
+                    "x": 567.1532846715329,
+                    "y": 398.75912408759126
+                },
+                {
+                    "id": "Cdc20:FEAR",
+                    "line_color": "#009900",
+                    "x": 485.40145985401466,
+                    "y": 610.8029197080292
+                },
+                {
+                    "id": "Cdc20:Clb5",
+                    "line_color": "#ff0000",
+                    "x": 702.5547445255474,
+                    "y": 606.970802919708
+                },
+                {
+                    "id": "Cdc20:SFF",
+                    "line_color": "#ff0000",
+                    "x": 553.1021897810219,
+                    "y": 456.2408759124088
+                }
+            ]
+        },
+        {
+            "name": "nodesLabelsData",
+            "_mapToSedmlReport": false,
+            "values": [
+                {
+                    "id": "Clb5",
+                    "text_color": "#000000",
+                    "x": 697.1240875912409,
+                    "y": 293.8029197080292
+                },
+                {
+                    "id": "S",
+                    "text_color": "#ffffff",
+                    "x": 789.094890510949,
+                    "y": 344.8978102189781
+                },
+                {
+                    "id": "CKI",
+                    "text_color": "#000000",
+                    "x": 168.2919708029197,
+                    "y": 278.4744525547445
+                },
+                {
+                    "id": "Cln3",
+                    "text_color": "#000000",
+                    "x": 596.2116788321168,
+                    "y": 139.24087591240877
+                },
+                {
+                    "id": "FEAR",
+                    "text_color": "#000000",
+                    "x": 330.5182481751825,
+                    "y": 631.029197080292
+                },
+                {
+                    "id": "CD",
+                    "text_color": "#ffffff",
+                    "x": 89.09489051094891,
+                    "y": 371.72262773722633
+                },
+                {
+                    "id": "B",
+                    "text_color": "#ffffff",
+                    "x": 408.4379562043796,
+                    "y": 112.41605839416059
+                },
+                {
+                    "id": "Clb2",
+                    "text_color": "#000000",
+                    "x": 368.8394160583942,
+                    "y": 408.7664233576643
+                },
+                {
+                    "id": "SFF",
+                    "text_color": "#000000",
+                    "x": 481.2481751824818,
+                    "y": 466.2481751824818
+                },
+                {
+                    "id": "Swi5",
+                    "text_color": "#000000",
+                    "x": 316.46715328467155,
+                    "y": 499.4598540145986
+                },
+                {
+                    "id": "MEN",
+                    "text_color": "#000000",
+                    "x": 234.7153284671533,
+                    "y": 599.094890510949
+                },
+                {
+                    "id": "Yhp1",
+                    "text_color": "#000000",
+                    "x": 672.8540145985402,
+                    "y": 186.5036496350365
+                },
+                {
+                    "id": "SMBF",
+                    "text_color": "#000000",
+                    "x": 518.2919708029198,
+                    "y": 245.26277372262774
+                },
+                {
+                    "id": "Cdc14",
+                    "text_color": "#000000",
+                    "x": 168.2919708029197,
+                    "y": 517.3430656934306
+                },
+                {
+                    "id": "M",
+                    "text_color": "#ffffff",
+                    "x": 413.5474452554745,
+                    "y": 689.7883211678833
+                },
+                {
+                    "id": "Cdh1",
+                    "text_color": "#000000",
+                    "x": 607.7080291970804,
+                    "y": 365.3357664233577
+                },
+                {
+                    "id": "Cln2",
+                    "text_color": "#000000",
+                    "x": 264.0948905109489,
+                    "y": 159.67883211678833
+                },
+                {
+                    "id": "Cdc20",
+                    "text_color": "#000000",
+                    "x": 545.1167883211679,
+                    "y": 622.087591240876
+                }
+            ]
+        },
+        {
+            "name": "edgesLabelsDataVisible",
+            "_mapToSedmlReport": false,
+            "source": "edgesLabelsData",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "Regulation_labels"
+                }
+            ]
+        },
+        {
+            "name": "nodesLabelsDataVisible",
+            "_mapToSedmlReport": false,
+            "source": "nodesLabelsData",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "Node_labels"
+                }
+            ]
+        },
+        {
+            "name": "nodesScaledandHighlights",
+            "_mapToSedmlReport": false,
+            "source": "nodesData",
+            "transform": [
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x)",
+                    "as": "xScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y)",
+                    "as": "yScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "datum.size * currentZoom",
+                    "as": "sizeScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "nodeStrokeWidthData * currentZoom",
+                    "as": "strokeWidthScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "hover ? (hover.id == datum.id ? nodeFill : (indexof(hover.metaboliteIds, datum.id) >= 0 ? nodeFill : (indexof(hover.relatedMetaboliteIds, datum.id) >= 0 ? nodeLightFill : hiddenColor))) : nodeFill",
+                    "as": "fill"
+                },
+                {
+                    "type": "formula",
+                    "expr": "hover ? (hover.id == datum.id ? nodeStroke : (indexof(hover.metaboliteIds, datum.id) >= 0 ? nodeStroke : (indexof(hover.relatedMetaboliteIds, datum.id) >= 0 ? nodeLightStroke : hiddenColor))) : nodeStroke",
+                    "as": "stroke"
+                }
+            ]
+        },
+        {
+            "name": "nodeLabelsVisibleScaled",
+            "_mapToSedmlReport": false,
+            "source": "nodesData",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "Node_labels"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.labelX)",
+                    "as": "labelXScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.labelY)",
+                    "as": "labelYScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "8 * currentZoom",
+                    "as": "fontSizeScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "hover ? (hover.id == datum.id ? labelColor : (indexof(hover.metaboliteIds, datum.id) >= 0 ? labelColor : (indexof(hover.relatedMetaboliteIds, datum.id) >= 0 ? labelColor : hiddenColor))) : labelColor",
+                    "as": "fill"
+                }
+            ]
+        },
+        {
+            "name": "edgeSegmentPathsScaled",
+            "_mapToSedmlReport": false,
+            "source": "edgesData",
+            "transform": [
+                {
+                    "type": "formula",
+                    "expr": "[datum.id]",
+                    "as": "reactionIds"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x0)",
+                    "as": "x0Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y0)",
+                    "as": "y0Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x1)",
+                    "as": "x1Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y1)",
+                    "as": "y1Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x2)",
+                    "as": "x2Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y2)",
+                    "as": "y2Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x3)",
+                    "as": "x3Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y3)",
+                    "as": "y3Scaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "datum.type === 'line' ? ('M' + toString(datum.x0Scaled) + ',' + toString(datum.y0Scaled) + 'L' + toString(datum.x1Scaled) + ',' + toString(datum.y1Scaled)) : ('M' + toString(datum.x0Scaled) + ',' + toString(datum.y0Scaled) + 'C' + toString(datum.x1Scaled) + ',' + toString(datum.y1Scaled) + ' ' + toString(datum.x2Scaled) + ',' + toString(datum.y2Scaled) + ' ' + toString(datum.x3Scaled) + ',' + toString(datum.y3Scaled))",
+                    "as": "path"
+                },
+                {
+                    "type": "formula",
+                    "expr": "nodeStrokeWidthData * currentZoom",
+                    "as": "strokeWidthScaled"
+                }
+            ]
+        },
+        {
+            "name": "edgeEndScaled",
+            "_mapToSedmlReport": false,
+            "source": "edgeEndCoordinatesData",
+            "transform": [
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x)",
+                    "as": "xScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y)",
+                    "as": "yScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "100 * currentZoom",
+                    "as": "sizeScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "edgeEndStrokeWidthData * 4 * currentZoom",
+                    "as": "strokeWidthScaled"
+                }
+            ]
+        },
+        {
+            "name": "edgeLabelsVisibleScaled",
+            "_mapToSedmlReport": false,
+            "source": "edgesLabelsData",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "Regulation_labels"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionXScale', datum.x)",
+                    "as": "xScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "scale('positionYScale', datum.y)",
+                    "as": "yScaled"
+                },
+                {
+                    "type": "formula",
+                    "expr": "8 * currentZoom",
+                    "as": "fontSizeScaled"
+                }
+            ]
+        },
+        {
+            "name": "nodesValues",
+            "url": "https://run.api.biosimulations.org/results/60ca299e1bdfd54d622a6297/simulation.sedml%2Freport_wt?sparse=false",
+            "format": {
+                "type": "json",
+                "property": "data"
+            }
+        },
+        {
+            "name": "nodesValueAtTimeStep",
+            "_mapToSedmlReport": false,
+            "source": "nodesValues",
+            "transform": [
+                {
+                    "type": "formula",
+                    "expr": "datum.values[Time_step]",
+                    "as": "value"
+                },
+                {
+                    "type": "project",
+                    "fields": [
+                        "label",
+                        "value"
+                    ],
+                    "as": [
+                        "label",
+                        "value"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "nodesDataAndValueAtTimeStep",
+            "_mapToSedmlReport": false,
+            "source": "nodesData",
+            "transform": [
+                {
+                    "type": "lookup",
+                    "from": "nodesValueAtTimeStep",
+                    "key": "name",
+                    "fields": [
+                        "label"
+                    ],
+                    "values": [
+                        "value"
+                    ],
+                    "as": [
+                        "value"
+                    ]
+                }
+            ]
+        }
+    ],
+    "scales": [
+        {
+            "name": "positionXScale",
+            "type": "linear",
+            "domain": {
+                "signal": "xdom"
+            },
+            "range": {
+                "signal": "xrange"
+            },
+            "zero": false
+        },
+        {
+            "name": "positionYScale",
+            "type": "linear",
+            "domain": {
+                "signal": "ydom"
+            },
+            "range": {
+                "signal": "yrange"
+            },
+            "zero": false
+        }
+    ],
+    "marks": [
+        {
+            "name": "Edges",
+            "type": "path",
+            "from": {
+                "data": "edgesData"
+            },
+            "encode": {
+                "enter": {
+                    "path": {
+                        "field": "edge_svg_path"
+                    },
+                    "strokeWidth": {
+                        "field": "strokeWidthScaled"
+                    },
+                    "stroke": {
+                        "field": "line_color"
+                    }
+                }
+            }
+        },
+        {
+            "name": "edgeEnds",
+            "type": "symbol",
+            "from": {
+                "data": "edgeEndCoordinatesData"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x"
+                    },
+                    "y": {
+                        "field": "y"
+                    },
+                    "shape": {
+                        "field": "edge_end_shape"
+                    },
+                    "angle": {
+                        "field": "edge_end_angle"
+                    },
+                    "stroke": {
+                        "field": "line_color"
+                    },
+                    "strokeWidth": {
+                        "field": "stroke_width"
+                    },
+                    "fill": {
+                        "field": "line_color"
+                    }
+                }
+            }
+        },
+        {
+            "name": "Nodes",
+            "type": "rect",
+            "from": {
+                "data": "nodesData"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x_value"
+                    },
+                    "y": {
+                        "field": "y_value"
+                    },
+                    "width": {
+                        "field": "node_width"
+                    },
+                    "height": {
+                        "field": "node_height"
+                    },
+                    "fill": {
+                        "field": "fill_color"
+                    },
+                    "stroke": {
+                        "field": "text_color"
+                    }
+                }
+            }
+        },
+        {
+            "name": "nodesLabels",
+            "type": "text",
+            "from": {
+                "data": "nodesLabelsDataVisible"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x"
+                    },
+                    "y": {
+                        "field": "y"
+                    },
+                    "text": {
+                        "field": "id"
+                    },
+                    "align": {
+                        "value": "center"
+                    },
+                    "fontWeight": {
+                        "value": "bold"
+                    },
+                    "fill": {
+                        "field": "text_color"
+                    }
+                }
+            }
+        },
+        {
+            "name": "edgesLabels",
+            "type": "text",
+            "from": {
+                "data": "edgesLabelsDataVisible"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x"
+                    },
+                    "y": {
+                        "field": "y"
+                    },
+                    "text": {
+                        "field": "id"
+                    },
+                    "align": {
+                        "value": "center"
+                    },
+                    "fill": {
+                        "field": "line_color"
+                    }
+                }
+            }
+        }
+    ]
+}
