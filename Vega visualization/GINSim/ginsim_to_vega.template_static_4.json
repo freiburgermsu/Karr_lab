@@ -1,0 +1,288 @@
+{
+	"$schema": "https://vega.github.io/schema/vega/v5.json",
+	"width": 500,
+	"height": 500,
+	"padding": 0,
+	"autosize": "none",
+
+	"signals": [{
+		    "name": "Time_step",
+		    "description": "Time step",
+		    "value":0,
+		    "bind": {
+			"input": "range",
+			"min": 0,
+			"max": 100
+		    }
+		},
+		{
+		    "name": "edgeStrokeWidth",
+		    "description": "edges stroke width",
+		    "value": 2.2,
+		    "bind": {
+			"input": "range",
+			"min": 0.2,
+			"max": 4
+		    }
+		},
+		{
+		    "name": "hoverOpacity",
+		    "value": 0.3
+		},
+		{
+			"name": "Node_labels",
+			"value": true,
+			"bind": {
+				"input": "checkbox"
+			}
+		},
+		{
+			"name": "Regulation_labels",
+			"value": true,
+			"bind": {
+				"input": "checkbox"
+			}
+		},
+		{
+			"name": "hover",
+			"value": null,
+			"on": [{
+					"events": "*:mouseover",
+					"update": "item().datum"
+				},
+				{
+					"events": "*:mouseout",
+					"update": "null"
+				}
+			]
+		}
+	],
+
+	"data": [{
+			"name": "nodesData",
+			"_mapToSedmlReport": false,
+			"values": null
+		},
+		{
+			"name": "edgesData",
+			"_mapToSedmlReport": false,
+			"values": null
+		},
+		{
+			"name": "edgeEndCoordinatesData",
+			"_mapToSedmlReport": false,
+			"values": null
+		},
+		{
+			"name": "edgesLabelsData",
+			"_mapToSedmlReport": false,
+			"values": null
+		},
+		{
+			"name": "nodesLabelsData",
+			"_mapToSedmlReport": false,
+			"values": null
+		},
+		{
+			"name": "edgesLabelsDataVisible",
+			"_mapToSedmlReport": false,
+			"source": "edgesLabelsData",
+			"transform": [{
+				"type": "filter",
+				"expr": "Regulation_labels"
+			}]
+		},
+		{
+			"name": "nodesLabelsDataVisible",
+			"_mapToSedmlReport": false,
+			"source": "nodesLabelsData",
+			"transform": [{
+				"type": "filter",
+				"expr": "Node_labels"
+			}]
+		},
+		{
+			"name": "nodesValues",
+			"url": "https://run.api.biosimulations.org/results/60ca299e1bdfd54d622a6297/simulation.sedml%2Freport_wt?sparse=false",
+			"format": {
+				"type": "json",
+				"property": "data"
+			}
+		},
+		{
+			"name": "nodesValueAtTimeStep",
+			"_mapToSedmlReport": false,
+			"source": "nodesValues",
+			"transform": [{
+					"type": "formula",
+					"expr": "datum.values[Time_step]",
+					"as": "value"
+				},
+				{
+					"type": "project",
+					"fields": ["label", "value"],
+					"as": ["label", "value"]
+				}
+			]
+		},
+		{
+			"name": "nodesDataAndValueAtTimeStep",
+			"_mapToSedmlReport": false,
+			"source": "nodesData",
+			"transform": [{
+				"type": "lookup",
+				"from": "nodesValueAtTimeStep",
+				"key": "name",
+				"fields": ["label"],
+				"values": ["value"],
+				"as": ["value"]
+			}]
+		}
+	],
+	"marks": [{
+			"name": "Edges",
+			"type": "path",
+			"from": {
+				"data": "edgesData"
+			},
+			"encode": {
+				"enter": {
+					"path": {
+						"field": "edge_svg_path"
+					},
+					"stroke": {
+					    "field": "line_color"
+					    }
+					},
+				"update":{"opacity":{"value": 1},
+					"strokeWidth": {
+						"signal": "edgeStrokeWidth"
+					}},
+				"hover":{"opacity":{"signal": "hoverOpacity"}}
+			    }
+		},
+		{
+			"name": "edgeEnds",
+			"type": "symbol",
+			"from": {
+				"data": "edgeEndCoordinatesData"
+			},
+			"encode": {
+				"enter": {
+					"x": {
+						"field": "x"
+					},
+					"y": {
+						"field": "y"
+					},
+					"shape": {
+						"field": "edge_end_shape"
+					},
+					"angle": {
+						"field": "edge_end_angle"
+					},
+					"stroke": {
+						"field": "line_color"
+					},
+					"strokeWidth": {"field": "stroke_width"},
+					"fill": {
+						"field": "line_color"
+					}
+				}
+			}
+		},
+		{
+			"name": "Nodes",
+			"type": "rect",
+			"from": {
+				"data": "nodesData"
+			},
+			"encode": {
+				"enter": {
+					"x": {
+						"field": "x_value"
+					},
+					"y": {
+						"field": "y_value"
+					},
+					"width": {"field" : "node_width"},
+					"height": {"field": "node_height"},
+					"fill": {"field": "fill_color"},
+					"stroke": {"field": "text_color"}
+					
+				}
+			}
+		},
+		{
+			"name": "nodesLabels",
+			"type": "text",
+			"from": {
+				"data": "nodesLabelsDataVisible"
+			},
+			"encode": {
+				"enter": {
+					"x": {
+						"field": "x"
+					},
+					"y": {
+						"field": "y"
+					},
+					"text": {
+						"field": "id"
+					},
+					"align": {
+						"value": "center"
+					},
+					"fontWeight": {"value": "bold"},
+					"fill": {"field": "text_color"}
+				}
+			}
+		},
+		{
+			"name": "edgesLabels",
+			"type": "text",
+			"from": {
+				"data": "edgesLabelsDataVisible"
+			},
+			"encode": {
+				"enter": {
+					"x": {
+						"field": "x"
+					},
+					"y": {
+						"field": "y"
+					},
+				        "text": {
+					    "field": "id"
+					},
+					"align": {
+						"value": "center"
+					},
+					"fill": {"field": "line_color"}
+				}
+			}
+		},
+		{
+		"name": "comments",
+		"type": "text",
+		"from": {
+		    "data": "nodesData"
+		    },
+		"encode": {
+			"enter": {
+				"x": {"field": "x_value"},
+				"y": {"field": "y_value"},
+				"align": {"value": "center"},
+				"fill": {"field": "fill_color"},
+				"stroke": {"field": "text_color"},
+				"tooltip": {"signal": "datum.comment"},
+				"text": {"field": null}
+			},
+			"update":{
+			    "text": {"field": "hover.comment"}
+			}
+		    }
+		}
+		
+	]
+}
