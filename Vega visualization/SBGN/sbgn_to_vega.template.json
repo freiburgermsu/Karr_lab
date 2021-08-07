@@ -15,23 +15,6 @@
 			"min": 0.2,
 			"max": 4
 		    }
-		},
-		{
-		    "name": "hoverOpacity",
-		    "value": 0.3
-		},
-		{
-			"name": "hover",
-			"value": null,
-			"on": [{
-					"events": "*:mouseover",
-					"update": "item().datum"
-				},
-				{
-					"events": "*:mouseout",
-					"update": "null"
-				}
-			]
 		}
 	],
 
@@ -40,6 +23,11 @@
 			"_mapToSedmlReport": false,
 			"values": null
 		},
+		{
+			"name": "circleNodesData",
+			"_mapToSedmlReport": false,
+			"values": null
+		},		
 		{
 			"name": "edgesData",
 			"_mapToSedmlReport": false,
@@ -51,93 +39,33 @@
 			"values": null
 		},
 		{
-			"name": "edgesLabelsData",
-			"_mapToSedmlReport": false,
-			"values": null
-		},
-		{
-			"name": "nodesLabelsData",
-			"_mapToSedmlReport": false,
-			"values": null
-		},
-		{
-			"name": "edgesLabelsDataVisible",
-			"_mapToSedmlReport": false,
-			"source": "edgesLabelsData",
-			"transform": [{
-				"type": "filter",
-				"expr": "Regulation_labels"
-			}]
-		},
-		{
-			"name": "nodesLabelsDataVisible",
-			"_mapToSedmlReport": false,
-			"source": "nodesLabelsData",
-			"transform": [{
-				"type": "filter",
-				"expr": "Node_labels"
-			}]
-		},
-		{
 			"name": "nodesValues",
 			"url": "",
 			"format": {
 				"type": "json",
 				"property": "data"
 			}
-		},
-		{
-			"name": "nodesValueAtTimeStep",
-			"_mapToSedmlReport": false,
-			"source": "nodesValues",
-			"transform": [{
-					"type": "formula",
-					"expr": "datum.values[Time_step]",
-					"as": "value"
-				},
-				{
-					"type": "project",
-					"fields": ["label", "value"],
-					"as": ["label", "value"]
-				}
-			]
-		},
-		{
-			"name": "nodesDataAndValueAtTimeStep",
-			"_mapToSedmlReport": false,
-			"source": "nodesData",
-			"transform": [{
-				"type": "lookup",
-				"from": "nodesValueAtTimeStep",
-				"key": "name",
-				"fields": ["label"],
-				"values": ["value"],
-				"as": ["value"]
-			}]
 		}
 	],
 	"marks": [{
-			"name": "Edges",
-			"type": "path",
-			"from": {
-				"data": "edgesData"
-			},
-			"encode": {
-				"enter": {
-					"path": {
-						"field": "edge_svg_path"
-					},
-					"stroke": {
-					    "field": "line_color"
-					    }
-					},
-				"update":{"opacity":{"value": 1},
-					"strokeWidth": {
-						"signal": "edgeStrokeWidth"
-					}},
-				"hover":{"opacity":{"signal": "hoverOpacity"}}
-			    }
-		},
+            "name": "Edges",
+            "type": "path",
+            "from": {
+                "data": "edgesData"
+            },
+            "encode": {
+                "enter": {
+                    "path": {
+                        "field": "edge_svg_path"
+                    }
+                },
+                    "update": {
+                        "strokeWidth": {
+                            "signal": "edgeStrokeWidth"
+                    }
+                }
+            }
+        },
 		{
 			"name": "edgeEnds",
 			"type": "symbol",
@@ -157,13 +85,6 @@
 					},
 					"angle": {
 						"field": "edge_end_angle"
-					},
-					"stroke": {
-						"field": "line_color"
-					},
-					"strokeWidth": {"field": "stroke_width"},
-					"fill": {
-						"field": "line_color"
 					}
 				}
 			}
@@ -183,65 +104,28 @@
 						"field": "y_value"
 					},
 					"width": {"field" : "node_width"},
-					"height": {"field": "node_height"},
-					"fill": {"field": "fill_color"},
-					"stroke": {"field": "text_color"}
-					
-				},
-				"update": {
-					"from": {"data": "nodesDataAndValueAtTimeStep"}
-					
+					"height": {"field": "node_height"}
 				}
 			}
 		},
 		{
-			"name": "nodesLabels",
-			"type": "text",
+			"name": "circleNodes",
+			"type": "symbol",
 			"from": {
-				"data": "nodesLabelsDataVisible"
+				"data": "circleNodesData"
 			},
 			"encode": {
 				"enter": {
+					"shape": {"field":"circle"},
 					"x": {
-						"field": "x"
+						"field": "x_value"
 					},
 					"y": {
-						"field": "y"
+						"field": "y_value"
 					},
-					"text": {
-						"field": "id"
-					},
-					"align": {
-						"value": "center"
-					},
-					"fontWeight": {"value": "bold"},
-					"fill": {"field": "text_color"}
+					"size": {"field" : "size"}
 				}
 			}
-		},
-		{
-			"name": "edgesLabels",
-			"type": "text",
-			"from": {
-				"data": "edgesLabelsDataVisible"
-			},
-			"encode": {
-				"enter": {
-					"x": {
-						"field": "x"
-					},
-					"y": {
-						"field": "y"
-					},
-				        "text": {
-					    "field": "id"
-					},
-					"align": {
-						"value": "center"
-					},
-					"fill": {"field": "line_color"}
-				}
-			}
-		}	
+		}		
 	]
 }

@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
     "width": 900,
-    "height": 708.8235294117648,
-    "padding": 0,
+    "height": 615.3846153846154,
+    "padding": 100,
     "autosize": "none",
     "signals": [
         {
@@ -14,24 +14,6 @@
                 "min": 0.2,
                 "max": 4
             }
-        },
-        {
-            "name": "hoverOpacity",
-            "value": 0.3
-        },
-        {
-            "name": "hover",
-            "value": null,
-            "on": [
-                {
-                    "events": "*:mouseover",
-                    "update": "item().datum"
-                },
-                {
-                    "events": "*:mouseout",
-                    "update": "null"
-                }
-            ]
         }
     ],
     "data": [
@@ -40,244 +22,238 @@
             "_mapToSedmlReport": false,
             "values": [
                 {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "590.0",
-                    "y_value": "50.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "155.0",
-                    "y_value": "50.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "490.0",
-                    "y_value": "310.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "675.0",
-                    "y_value": "150.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
+                    "id": "glyph5",
                     "process": "process",
-                    "x_value": "258.0",
-                    "y_value": "58.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "x_value": 248.0769230769231,
+                    "y_value": 55.769230769230774,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
                 },
                 {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "545.0",
-                    "y_value": "363.61728",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "875.0",
-                    "y_value": "80.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "875.0",
-                    "y_value": "445.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
+                    "id": "glyph16",
                     "process": "process",
-                    "x_value": "883.0",
-                    "y_value": "168.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "x_value": 849.0384615384615,
+                    "y_value": 161.53846153846155,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
                 },
                 {
-                    "id": "Laclp",
+                    "id": "glyph8",
                     "process": "macromolecule",
-                    "x_value": "332.0",
-                    "y_value": "50.0",
-                    "node_width": "72.0",
-                    "node_height": "36.0"
+                    "x_value": 319.2307692307692,
+                    "y_value": 48.07692307692308,
+                    "node_width": 69.23076923076923,
+                    "node_height": 34.61538461538461
                 },
                 {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "625.0",
-                    "y_value": "715.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
+                    "id": "glyph14",
                     "process": "process",
-                    "x_value": "633.0",
-                    "y_value": "638.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "x_value": 608.6538461538462,
+                    "y_value": 613.4615384615385,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
                 },
                 {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "145.0",
-                    "y_value": "560.0",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "430.0",
-                    "y_value": "363.61728",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": null,
-                    "process": "source and sink",
-                    "x_value": "50.0",
-                    "y_value": "363.617",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
-                },
-                {
-                    "id": "Clp",
+                    "id": "glyph27",
                     "process": "macromolecule",
-                    "x_value": "857.0",
-                    "y_value": "235.0",
-                    "node_width": "72.0",
-                    "node_height": "36.0"
+                    "x_value": 824.0384615384615,
+                    "y_value": 225.96153846153848,
+                    "node_width": 69.23076923076923,
+                    "node_height": 34.61538461538461
                 },
                 {
-                    "id": "Tetp",
+                    "id": "glyph24",
                     "process": "macromolecule",
-                    "x_value": "607.0",
-                    "y_value": "560.0",
-                    "node_width": "72.0",
-                    "node_height": "36.0"
+                    "x_value": 583.6538461538462,
+                    "y_value": 538.4615384615385,
+                    "node_width": 69.23076923076923,
+                    "node_height": 34.61538461538461
                 },
                 {
-                    "id": null,
+                    "id": "glyph13",
                     "process": "process",
-                    "x_value": "633.0",
-                    "y_value": "371.61728",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "x_value": 608.6538461538462,
+                    "y_value": 357.3243076923077,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
                 },
                 {
-                    "id": null,
+                    "id": "glyph26",
                     "process": "process",
-                    "x_value": "883.0",
-                    "y_value": "371.61728",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "x_value": 849.0384615384615,
+                    "y_value": 357.3243076923077,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
                 },
                 {
-                    "id": null,
+                    "id": "glyph21",
+                    "process": "nucleic acid feature",
+                    "x_value": 699.0384615384615,
+                    "y_value": 349.6317307692308,
+                    "node_width": 69.23076923076923,
+                    "node_height": 34.61538461538461
+                },
+                {
+                    "id": "glyph28",
+                    "process": "process",
+                    "x_value": 724.0384615384615,
+                    "y_value": 424.67951923076924,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                },
+                {
+                    "id": "glyph32",
+                    "process": "process",
+                    "x_value": 344.2307692307692,
+                    "y_value": 357.3243076923077,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                },
+                {
+                    "id": "glyph9",
+                    "process": "process",
+                    "x_value": 149.03846153846155,
+                    "y_value": 357.3243076923077,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                },
+                {
+                    "id": "glyph1",
+                    "process": "nucleic acid feature",
+                    "x_value": 213.46153846153848,
+                    "y_value": 349.6317307692308,
+                    "node_width": 69.23076923076923,
+                    "node_height": 34.61538461538461
+                },
+                {
+                    "id": "glyph23",
+                    "process": "process",
+                    "x_value": 239.42307692307693,
+                    "y_value": 546.1538461538462,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                },
+                {
+                    "id": "glyph4",
+                    "process": "process",
+                    "x_value": 478.84615384615387,
+                    "y_value": 55.769230769230774,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                },
+                {
+                    "id": "glyph7",
+                    "process": "process",
+                    "x_value": 478.84615384615387,
+                    "y_value": 233.65384615384616,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                },
+                {
+                    "id": "glyph20",
+                    "process": "nucleic acid feature",
+                    "x_value": 453.84615384615387,
+                    "y_value": 144.23076923076923,
+                    "node_width": 69.23076923076923,
+                    "node_height": 34.61538461538461
+                },
+                {
+                    "id": "glyph6",
+                    "process": "process",
+                    "x_value": 575.0,
+                    "y_value": 151.92307692307693,
+                    "node_width": 19.23076923076923,
+                    "node_height": 19.23076923076923
+                }
+            ]
+        },
+        {
+            "name": "circleNodesData",
+            "_mapToSedmlReport": false,
+            "values": [
+                {
+                    "id": "glyph3",
                     "process": "source and sink",
-                    "x_value": "745.0",
-                    "y_value": "513.6667",
-                    "node_width": "36.0",
-                    "node_height": "36.0"
+                    "x_value": 567.3076923076924,
+                    "y_value": 48.07692307692308,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": "Clm",
-                    "process": "nucleic acid feature",
-                    "x_value": "727.0",
-                    "y_value": "363.617",
-                    "node_width": "72.0",
-                    "node_height": "36.0"
+                    "id": "glyph2",
+                    "process": "source and sink",
+                    "x_value": 149.03846153846155,
+                    "y_value": 48.07692307692308,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "753.0",
-                    "y_value": "441.6667",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph11",
+                    "process": "source and sink",
+                    "x_value": 471.1538461538462,
+                    "y_value": 298.0769230769231,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "358.0",
-                    "y_value": "371.61728",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph12",
+                    "process": "source and sink",
+                    "x_value": 649.0384615384615,
+                    "y_value": 144.23076923076923,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "155.0",
-                    "y_value": "371.61728",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph10",
+                    "process": "source and sink",
+                    "x_value": 524.0384615384615,
+                    "y_value": 349.632,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": "Tetm",
-                    "process": "nucleic acid feature",
-                    "x_value": "222.0",
-                    "y_value": "363.617",
-                    "node_width": "72.0",
-                    "node_height": "36.0"
+                    "id": "glyph15",
+                    "process": "source and sink",
+                    "x_value": 841.3461538461539,
+                    "y_value": 76.92307692307692,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "249.0",
-                    "y_value": "568.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph25",
+                    "process": "source and sink",
+                    "x_value": 841.3461538461539,
+                    "y_value": 427.8846153846154,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "498.0",
-                    "y_value": "58.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph30",
+                    "process": "source and sink",
+                    "x_value": 600.9615384615385,
+                    "y_value": 687.5,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "498.0",
-                    "y_value": "243.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph17",
+                    "process": "source and sink",
+                    "x_value": 139.42307692307693,
+                    "y_value": 538.4615384615385,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": "Laclm",
-                    "process": "nucleic acid feature",
-                    "x_value": "472.0",
-                    "y_value": "150.0",
-                    "node_width": "72.0",
-                    "node_height": "36.0"
+                    "id": "glyph19",
+                    "process": "source and sink",
+                    "x_value": 413.46153846153845,
+                    "y_value": 349.632,
+                    "size": 1246.1538461538462
                 },
                 {
-                    "id": null,
-                    "process": "process",
-                    "x_value": "598.0",
-                    "y_value": "158.0",
-                    "node_width": "20.0",
-                    "node_height": "20.0"
+                    "id": "glyph18",
+                    "process": "source and sink",
+                    "x_value": 48.07692307692308,
+                    "y_value": 349.6317307692308,
+                    "size": 1246.1538461538462
+                },
+                {
+                    "id": "glyph22",
+                    "process": "source and sink",
+                    "x_value": 716.3461538461538,
+                    "y_value": 493.91028846153847,
+                    "size": 1246.1538461538462
                 }
             ]
         },
@@ -287,7 +263,7 @@
             "values": [
                 {
                     "id": "arc1",
-                    "edge_svg_path": "M 495.7983193277311 57.142857142857146 h -52.10084033613447",
+                    "edge_svg_path": "M 567.3076923076924 65.38461538461539 h -59.6153846153847",
                     "related_nodes": [
                         "glyph3",
                         "glyph4.2"
@@ -295,7 +271,7 @@
                 },
                 {
                     "id": "arc4",
-                    "edge_svg_path": "M 208.4033613445378 57.142857142857146 h -47.89915966386553",
+                    "edge_svg_path": "M 238.46153846153848 65.38461538461539 h -54.80769230769232",
                     "related_nodes": [
                         "glyph5.1",
                         "glyph2"
@@ -303,7 +279,7 @@
                 },
                 {
                     "id": "arc6",
-                    "edge_svg_path": "M 426.890756302521 260.5042016806723 v -31.092436974789933",
+                    "edge_svg_path": "M 488.46153846153845 298.0769230769231 v -35.576923076923094",
                     "related_nodes": [
                         "glyph11",
                         "glyph7.2"
@@ -311,7 +287,7 @@
                 },
                 {
                     "id": "arc9",
-                    "edge_svg_path": "M 527.7310924369748 141.1764705882353 h 39.49579831932772",
+                    "edge_svg_path": "M 603.8461538461538 161.53846153846155 h 45.192307692307736",
                     "related_nodes": [
                         "glyph6.2",
                         "glyph12"
@@ -319,7 +295,7 @@
                 },
                 {
                     "id": "arc3",
-                    "edge_svg_path": "M 278.9915966386555 57.142857142857146 h -36.974789915966426",
+                    "edge_svg_path": "M 319.2307692307692 65.38461538461539 h -42.30769230769232",
                     "related_nodes": [
                         "glyph8",
                         "glyph5.2"
@@ -327,7 +303,7 @@
                 },
                 {
                     "id": "arc19",
-                    "edge_svg_path": "M 488.2352941176471 320.68678991596636 h 35.29411764705878",
+                    "edge_svg_path": "M 558.6538461538462 366.9396923076923 h 40.38461538461536",
                     "related_nodes": [
                         "glyph10",
                         "glyph13.1"
@@ -335,7 +311,7 @@
                 },
                 {
                     "id": "arc22",
-                    "edge_svg_path": "M 410.0840336134454 57.142857142857146 h -70.58823529411768",
+                    "edge_svg_path": "M 469.2307692307692 65.38461538461539 h -80.76923076923077",
                     "related_nodes": [
                         "glyph4.1",
                         "glyph8"
@@ -343,7 +319,7 @@
                 },
                 {
                     "id": "arc24",
-                    "edge_svg_path": "M 750.4201680672269 132.7731092436975 v -35.29411764705884",
+                    "edge_svg_path": "M 858.6538461538462 151.92307692307693 v -40.38461538461539",
                     "related_nodes": [
                         "glyph16.1",
                         "glyph15"
@@ -351,7 +327,7 @@
                 },
                 {
                     "id": "arc10",
-                    "edge_svg_path": "M 750.4201680672269 303.88006722689073 v -76.14897478991594",
+                    "edge_svg_path": "M 858.6538461538462 347.7089230769231 v -87.132",
                     "related_nodes": [
                         "glyph26.1",
                         "glyph27"
@@ -359,7 +335,7 @@
                 },
                 {
                     "id": "arc11",
-                    "edge_svg_path": "M 750.4201680672269 373.9495798319328 v -36.45606722689075",
+                    "edge_svg_path": "M 858.6538461538462 427.8846153846154 v -41.71415384615386",
                     "related_nodes": [
                         "glyph25",
                         "glyph26.2"
@@ -367,7 +343,7 @@
                 },
                 {
                     "id": "arc13",
-                    "edge_svg_path": "M 750.4201680672269 197.47899159663865 v -31.092436974789905",
+                    "edge_svg_path": "M 858.6538461538462 225.96153846153848 v -35.576923076923094",
                     "related_nodes": [
                         "glyph27",
                         "glyph16.2"
@@ -375,7 +351,7 @@
                 },
                 {
                     "id": "arc15",
-                    "edge_svg_path": "M 309.2436974789916 72.26890756302521 v 240.01452100840334",
+                    "edge_svg_path": "M 353.84615384615387 82.6923076923077 v 274.632",
                     "related_nodes": [
                         "glyph8",
                         "glyph32"
@@ -383,7 +359,7 @@
                 },
                 {
                     "id": "arc16",
-                    "edge_svg_path": "M 540.3361344537815 561.344537815126 v 39.49579831932772",
+                    "edge_svg_path": "M 618.2692307692308 642.3076923076924 v 45.19230769230762",
                     "related_nodes": [
                         "glyph14.2",
                         "glyph30"
@@ -391,7 +367,7 @@
                 },
                 {
                     "id": "arc17",
-                    "edge_svg_path": "M 540.3361344537815 500.84033613445376 v 26.890756302521027",
+                    "edge_svg_path": "M 618.2692307692308 573.0769230769231 v 30.769230769230717",
                     "related_nodes": [
                         "glyph24",
                         "glyph14.1"
@@ -399,7 +375,7 @@
                 },
                 {
                     "id": "arc20",
-                    "edge_svg_path": "M 152.10084033613447 485.7142857142857 h 48.739495798319325",
+                    "edge_svg_path": "M 174.03846153846155 555.7692307692308 h 55.769230769230774",
                     "related_nodes": [
                         "glyph17",
                         "glyph23.1"
@@ -407,7 +383,7 @@
                 },
                 {
                     "id": "arc21",
-                    "edge_svg_path": "M 234.45378151260505 485.7142857142857 h 275.6302521008404",
+                    "edge_svg_path": "M 268.2692307692308 555.7692307692308 h 315.3846153846154",
                     "related_nodes": [
                         "glyph23.2",
                         "glyph24"
@@ -415,7 +391,7 @@
                 },
                 {
                     "id": "arc25",
-                    "edge_svg_path": "M 361.34453781512605 320.68678991596636 h -35.29411764705884",
+                    "edge_svg_path": "M 413.46153846153845 366.9396923076923 h -40.38461538461536",
                     "related_nodes": [
                         "glyph19",
                         "glyph32.2"
@@ -423,7 +399,7 @@
                 },
                 {
                     "id": "arc28",
-                    "edge_svg_path": "M 121.84873949579833 320.68678991596636 h -49.57983193277312",
+                    "edge_svg_path": "M 139.42307692307693 366.9396923076923 h -56.73076923076924",
                     "related_nodes": [
                         "glyph9.1",
                         "glyph18"
@@ -431,7 +407,7 @@
                 },
                 {
                     "id": "arc2",
-                    "edge_svg_path": "M 720.1680672268908 212.60504201680672 h -284.87394957983196",
+                    "edge_svg_path": "M 824.0384615384615 243.26923076923077 h -325.96153846153845",
                     "related_nodes": [
                         "glyph27",
                         "glyph7"
@@ -439,7 +415,7 @@
                 },
                 {
                     "id": "arc23",
-                    "edge_svg_path": "M 540.3361344537815 470.5882352941177 v -141.49808403361345",
+                    "edge_svg_path": "M 618.2692307692308 538.4615384615385 v -161.90646153846154",
                     "related_nodes": [
                         "glyph24",
                         "glyph13"
@@ -447,7 +423,7 @@
                 },
                 {
                     "id": "arc5",
-                    "edge_svg_path": "M 557.1428571428571 320.68678991596636 h 53.78151260504205",
+                    "edge_svg_path": "M 637.5 366.9396923076923 h 61.53846153846155",
                     "related_nodes": [
                         "glyph13.2",
                         "glyph21"
@@ -455,7 +431,7 @@
                 },
                 {
                     "id": "arc7",
-                    "edge_svg_path": "M 671.4285714285714 320.68655462184876 h 70.58823529411768",
+                    "edge_svg_path": "M 768.2692307692308 366.9394230769231 h 80.76923076923072",
                     "related_nodes": [
                         "glyph21",
                         "glyph26"
@@ -463,7 +439,7 @@
                 },
                 {
                     "id": "arc8",
-                    "edge_svg_path": "M 641.1764705882352 396.35857142857145 v 35.29411764705878",
+                    "edge_svg_path": "M 733.6538461538462 453.52567307692306 v 40.384615384615415",
                     "related_nodes": [
                         "glyph28.2",
                         "glyph22"
@@ -471,7 +447,7 @@
                 },
                 {
                     "id": "arc12",
-                    "edge_svg_path": "M 641.1764705882352 335.81260504201686 v 26.932521008403285",
+                    "edge_svg_path": "M 733.6538461538462 384.2471153846154 v 30.817019230769176",
                     "related_nodes": [
                         "glyph21",
                         "glyph28.1"
@@ -479,7 +455,7 @@
                 },
                 {
                     "id": "arc14",
-                    "edge_svg_path": "M 292.43697478991595 320.68678991596636 h -45.37815126050418",
+                    "edge_svg_path": "M 334.61538461538464 366.9396923076923 h -51.92307692307696",
                     "related_nodes": [
                         "glyph32.1",
                         "glyph1"
@@ -487,7 +463,7 @@
                 },
                 {
                     "id": "arc18",
-                    "edge_svg_path": "M 186.5546218487395 320.68655462184876 h -31.092436974789905",
+                    "edge_svg_path": "M 213.46153846153848 366.9394230769231 h -35.576923076923094",
                     "related_nodes": [
                         "glyph1",
                         "glyph9.2"
@@ -495,7 +471,7 @@
                 },
                 {
                     "id": "arc26",
-                    "edge_svg_path": "M 216.88373109243696 335.81260504201686 v 141.49831932773105",
+                    "edge_svg_path": "M 248.16503846153844 384.2471153846154 v 161.90673076923076",
                     "related_nodes": [
                         "glyph1",
                         "glyph23"
@@ -503,7 +479,7 @@
                 },
                 {
                     "id": "arc27",
-                    "edge_svg_path": "M 426.890756302521 126.05042016806723 v -60.50420168067228",
+                    "edge_svg_path": "M 488.46153846153845 144.23076923076923 v -69.23076923076923",
                     "related_nodes": [
                         "glyph20",
                         "glyph4"
@@ -511,7 +487,7 @@
                 },
                 {
                     "id": "arc29",
-                    "edge_svg_path": "M 426.890756302521 195.7983193277311 v -39.49579831932772",
+                    "edge_svg_path": "M 488.46153846153845 224.03846153846155 v -45.19230769230771",
                     "related_nodes": [
                         "glyph7.1",
                         "glyph20"
@@ -519,7 +495,7 @@
                 },
                 {
                     "id": "arc30",
-                    "edge_svg_path": "M 457.14285714285717 141.1764705882353 h 36.97478991596637",
+                    "edge_svg_path": "M 523.0769230769231 161.53846153846155 h 42.307692307692264",
                     "related_nodes": [
                         "glyph20",
                         "glyph6.1"
@@ -533,8 +509,8 @@
             "values": [
                 {
                     "id": "arc1",
-                    "x": 443.69747899159665,
-                    "y": 57.142857142857146,
+                    "x": 507.6923076923077,
+                    "y": 65.38461538461539,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -542,8 +518,8 @@
                 },
                 {
                     "id": "arc4",
-                    "x": 160.50420168067228,
-                    "y": 57.142857142857146,
+                    "x": 183.65384615384616,
+                    "y": 65.38461538461539,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -551,8 +527,8 @@
                 },
                 {
                     "id": "arc6",
-                    "x": 426.890756302521,
-                    "y": 229.41176470588235,
+                    "x": 488.46153846153845,
+                    "y": 262.5,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -560,8 +536,8 @@
                 },
                 {
                     "id": "arc9",
-                    "x": 567.2268907563025,
-                    "y": 141.1764705882353,
+                    "x": 649.0384615384615,
+                    "y": 161.53846153846155,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -569,8 +545,8 @@
                 },
                 {
                     "id": "arc3",
-                    "x": 242.01680672268907,
-                    "y": 57.142857142857146,
+                    "x": 276.9230769230769,
+                    "y": 65.38461538461539,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -578,8 +554,8 @@
                 },
                 {
                     "id": "arc19",
-                    "x": 523.5294117647059,
-                    "y": 320.68678991596636,
+                    "x": 599.0384615384615,
+                    "y": 366.9396923076923,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -587,8 +563,8 @@
                 },
                 {
                     "id": "arc22",
-                    "x": 339.4957983193277,
-                    "y": 57.142857142857146,
+                    "x": 388.46153846153845,
+                    "y": 65.38461538461539,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -596,8 +572,8 @@
                 },
                 {
                     "id": "arc24",
-                    "x": 750.4201680672269,
-                    "y": 97.47899159663865,
+                    "x": 858.6538461538462,
+                    "y": 111.53846153846155,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -605,8 +581,8 @@
                 },
                 {
                     "id": "arc10",
-                    "x": 750.4201680672269,
-                    "y": 227.7310924369748,
+                    "x": 858.6538461538462,
+                    "y": 260.5769230769231,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -614,8 +590,8 @@
                 },
                 {
                     "id": "arc11",
-                    "x": 750.4201680672269,
-                    "y": 337.49351260504204,
+                    "x": 858.6538461538462,
+                    "y": 386.17046153846155,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -623,8 +599,8 @@
                 },
                 {
                     "id": "arc13",
-                    "x": 750.4201680672269,
-                    "y": 166.38655462184875,
+                    "x": 858.6538461538462,
+                    "y": 190.3846153846154,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -632,8 +608,8 @@
                 },
                 {
                     "id": "arc15",
-                    "x": 309.2436974789916,
-                    "y": 312.28342857142854,
+                    "x": 353.84615384615387,
+                    "y": 357.3243076923077,
                     "edge_end_angle": 180.0,
                     "edge_end_shape": "stroke",
                     "stroke_width": 5,
@@ -641,8 +617,8 @@
                 },
                 {
                     "id": "arc16",
-                    "x": 540.3361344537815,
-                    "y": 600.8403361344538,
+                    "x": 618.2692307692308,
+                    "y": 687.5,
                     "edge_end_angle": 180.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -650,8 +626,8 @@
                 },
                 {
                     "id": "arc17",
-                    "x": 540.3361344537815,
-                    "y": 527.7310924369748,
+                    "x": 618.2692307692308,
+                    "y": 603.8461538461538,
                     "edge_end_angle": 180.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -659,8 +635,8 @@
                 },
                 {
                     "id": "arc20",
-                    "x": 200.8403361344538,
-                    "y": 485.7142857142857,
+                    "x": 229.80769230769232,
+                    "y": 555.7692307692308,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -668,8 +644,8 @@
                 },
                 {
                     "id": "arc21",
-                    "x": 510.0840336134454,
-                    "y": 485.7142857142857,
+                    "x": 583.6538461538462,
+                    "y": 555.7692307692308,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -677,8 +653,8 @@
                 },
                 {
                     "id": "arc25",
-                    "x": 326.0504201680672,
-                    "y": 320.68678991596636,
+                    "x": 373.0769230769231,
+                    "y": 366.9396923076923,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -686,8 +662,8 @@
                 },
                 {
                     "id": "arc28",
-                    "x": 72.26890756302521,
-                    "y": 320.68655462184876,
+                    "x": 82.6923076923077,
+                    "y": 366.9394230769231,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -695,8 +671,8 @@
                 },
                 {
                     "id": "arc2",
-                    "x": 435.29411764705884,
-                    "y": 212.60504201680672,
+                    "x": 498.0769230769231,
+                    "y": 243.26923076923077,
                     "edge_end_angle": 270.0,
                     "edge_end_shape": "stroke",
                     "stroke_width": 5,
@@ -704,8 +680,8 @@
                 },
                 {
                     "id": "arc23",
-                    "x": 540.3361344537815,
-                    "y": 329.09015126050423,
+                    "x": 618.2692307692308,
+                    "y": 376.5550769230769,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "stroke",
                     "stroke_width": 5,
@@ -713,8 +689,8 @@
                 },
                 {
                     "id": "arc5",
-                    "x": 610.9243697478992,
-                    "y": 320.68655462184876,
+                    "x": 699.0384615384615,
+                    "y": 366.9394230769231,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -722,8 +698,8 @@
                 },
                 {
                     "id": "arc7",
-                    "x": 742.0168067226891,
-                    "y": 320.68678991596636,
+                    "x": 849.0384615384615,
+                    "y": 366.9396923076923,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -731,8 +707,8 @@
                 },
                 {
                     "id": "arc8",
-                    "x": 641.1764705882352,
-                    "y": 431.65268907563024,
+                    "x": 733.6538461538462,
+                    "y": 493.91028846153847,
                     "edge_end_angle": 180.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -740,8 +716,8 @@
                 },
                 {
                     "id": "arc12",
-                    "x": 641.1764705882352,
-                    "y": 362.74512605042014,
+                    "x": 733.6538461538462,
+                    "y": 415.0641346153846,
                     "edge_end_angle": 180.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -749,8 +725,8 @@
                 },
                 {
                     "id": "arc14",
-                    "x": 247.05882352941177,
-                    "y": 320.68655462184876,
+                    "x": 282.6923076923077,
+                    "y": 366.9394230769231,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -758,8 +734,8 @@
                 },
                 {
                     "id": "arc18",
-                    "x": 155.46218487394958,
-                    "y": 320.68678991596636,
+                    "x": 177.8846153846154,
+                    "y": 366.9396923076923,
                     "edge_end_angle": 390.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -767,8 +743,8 @@
                 },
                 {
                     "id": "arc26",
-                    "x": 217.60426050420168,
-                    "y": 477.3109243697479,
+                    "x": 248.9894903846154,
+                    "y": 546.1538461538462,
                     "edge_end_angle": 180.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -776,8 +752,8 @@
                 },
                 {
                     "id": "arc27",
-                    "x": 426.890756302521,
-                    "y": 65.54621848739495,
+                    "x": 488.46153846153845,
+                    "y": 75.0,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -785,8 +761,8 @@
                 },
                 {
                     "id": "arc29",
-                    "x": 426.890756302521,
-                    "y": 156.30252100840337,
+                    "x": 488.46153846153845,
+                    "y": 178.84615384615384,
                     "edge_end_angle": 0.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
@@ -794,44 +770,12 @@
                 },
                 {
                     "id": "arc30",
-                    "x": 494.11764705882354,
-                    "y": 141.1764705882353,
+                    "x": 565.3846153846154,
+                    "y": 161.53846153846155,
                     "edge_end_angle": -150.0,
                     "edge_end_shape": "triangle",
                     "stroke_width": 2,
                     "edge_end_fill": "black"
-                }
-            ]
-        },
-        {
-            "name": "edgesLabelsData",
-            "_mapToSedmlReport": false,
-            "values": null
-        },
-        {
-            "name": "nodesLabelsData",
-            "_mapToSedmlReport": false,
-            "values": null
-        },
-        {
-            "name": "edgesLabelsDataVisible",
-            "_mapToSedmlReport": false,
-            "source": "edgesLabelsData",
-            "transform": [
-                {
-                    "type": "filter",
-                    "expr": "Regulation_labels"
-                }
-            ]
-        },
-        {
-            "name": "nodesLabelsDataVisible",
-            "_mapToSedmlReport": false,
-            "source": "nodesLabelsData",
-            "transform": [
-                {
-                    "type": "filter",
-                    "expr": "Node_labels"
                 }
             ]
         },
@@ -842,50 +786,6 @@
                 "type": "json",
                 "property": "data"
             }
-        },
-        {
-            "name": "nodesValueAtTimeStep",
-            "_mapToSedmlReport": false,
-            "source": "nodesValues",
-            "transform": [
-                {
-                    "type": "formula",
-                    "expr": "datum.values[Time_step]",
-                    "as": "value"
-                },
-                {
-                    "type": "project",
-                    "fields": [
-                        "label",
-                        "value"
-                    ],
-                    "as": [
-                        "label",
-                        "value"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "nodesDataAndValueAtTimeStep",
-            "_mapToSedmlReport": false,
-            "source": "nodesData",
-            "transform": [
-                {
-                    "type": "lookup",
-                    "from": "nodesValueAtTimeStep",
-                    "key": "name",
-                    "fields": [
-                        "label"
-                    ],
-                    "values": [
-                        "value"
-                    ],
-                    "as": [
-                        "value"
-                    ]
-                }
-            ]
         }
     ],
     "marks": [
@@ -899,22 +799,11 @@
                 "enter": {
                     "path": {
                         "field": "edge_svg_path"
-                    },
-                    "stroke": {
-                        "field": "line_color"
                     }
                 },
                 "update": {
-                    "opacity": {
-                        "value": 1
-                    },
                     "strokeWidth": {
                         "signal": "edgeStrokeWidth"
-                    }
-                },
-                "hover": {
-                    "opacity": {
-                        "signal": "hoverOpacity"
                     }
                 }
             }
@@ -938,15 +827,6 @@
                     },
                     "angle": {
                         "field": "edge_end_angle"
-                    },
-                    "stroke": {
-                        "field": "line_color"
-                    },
-                    "strokeWidth": {
-                        "field": "stroke_width"
-                    },
-                    "fill": {
-                        "field": "line_color"
                     }
                 }
             }
@@ -970,72 +850,29 @@
                     },
                     "height": {
                         "field": "node_height"
-                    },
-                    "fill": {
-                        "field": "fill_color"
-                    },
-                    "stroke": {
-                        "field": "text_color"
-                    }
-                },
-                "update": {
-                    "from": {
-                        "data": "nodesDataAndValueAtTimeStep"
                     }
                 }
             }
         },
         {
-            "name": "nodesLabels",
-            "type": "text",
+            "name": "circleNodes",
+            "type": "symbol",
             "from": {
-                "data": "nodesLabelsDataVisible"
+                "data": "circleNodesData"
             },
             "encode": {
                 "enter": {
+                    "shape": {
+                        "field": "circle"
+                    },
                     "x": {
-                        "field": "x"
+                        "field": "x_value"
                     },
                     "y": {
-                        "field": "y"
+                        "field": "y_value"
                     },
-                    "text": {
-                        "field": "id"
-                    },
-                    "align": {
-                        "value": "center"
-                    },
-                    "fontWeight": {
-                        "value": "bold"
-                    },
-                    "fill": {
-                        "field": "text_color"
-                    }
-                }
-            }
-        },
-        {
-            "name": "edgesLabels",
-            "type": "text",
-            "from": {
-                "data": "edgesLabelsDataVisible"
-            },
-            "encode": {
-                "enter": {
-                    "x": {
-                        "field": "x"
-                    },
-                    "y": {
-                        "field": "y"
-                    },
-                    "text": {
-                        "field": "id"
-                    },
-                    "align": {
-                        "value": "center"
-                    },
-                    "fill": {
-                        "field": "line_color"
+                    "size": {
+                        "field": "size"
                     }
                 }
             }
